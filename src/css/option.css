@@ -1,0 +1,26 @@
+
+.C-info{
+    margin-left:4rem;
+    margin-right:4rem;
+    border-radius: 5px;
+    min-width:20rem;
+}
+.C-optionsdiv{
+    display:grid;
+    align-items: center;
+    row-gap: 1rem;
+    grid-template-columns: 0.6fr 1fr;
+    width:10%;
+    margin:auto;
+    min-width: 13rem;
+}
+.C-savebtn{
+
+    justify-self: center;
+    grid-column: 1/3;
+    width:30%;
+}
+.C-dropdown{
+    margin-left:4rem;
+    margin-right:4rem;
+}

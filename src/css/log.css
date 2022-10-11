@@ -1,0 +1,21 @@
+#logtable {
+    display: flex;
+}
+
+.delbtn {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.C-loginfo{
+    margin-left:4rem;
+    margin-right:4rem;
+    border-radius: 5px;
+}
+.C-logtable{
+    border-bottom:3px solid black;
+    flex-grow: 1;
+}
+.C-openclosebtn{
+    display:flex;
+    justify-content:space-between;
+}

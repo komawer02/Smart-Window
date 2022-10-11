@@ -1,0 +1,12 @@
+.menuimg {
+    transition: all0.2s linear;
+}
+
+.menuimg:hover {
+    transform: scale(1.4);
+}
+
+.C-navinfo{
+    margin-left: 1rem;
+    text-align: end;
+}
