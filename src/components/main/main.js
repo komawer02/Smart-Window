@@ -1,11 +1,7 @@
 import '../../css/main.css'
 import { Outlet, Link, useParams } from 'react-router-dom'
-import { useEffect } from 'react';
 
 function Main() {
-    useEffect(()=>{
-        console.log('main 마운트')
-    })
     const serial = useParams();
     
     return (

@@ -17,6 +17,7 @@ function Register() {
     const [checkid, setCheckid] = useState(false);
     const [serial, setSerial] = useState('');
     const [checkserial, setCheckserial] = useState(false);
+    const [windowName,setWindowName] = useState('')
 
     const handleId = (e) => {
         setCheckid(false)
@@ -32,6 +33,9 @@ function Register() {
         setCheckserial(false)
         setSerial(e.target.value)
     }
+    const handleWindowName = (e)=>{
+        setWindowName(e.target.value)
+    }
 
     const onClickRegister = () => {
         if (checkserial) {
@@ -42,7 +46,8 @@ function Register() {
                             axios.post('/auth/register', {
                                 ID: id,
                                 Password: pwd,
-                                serialNum: serial
+                                serialNum: serial,
+                                location : windowName
                             })
                                 .then((res) => {
                                     if (res.data) {
@@ -124,7 +129,9 @@ function Register() {
                     <div className='confirmdiv'>
                         <button className="ml-1 btn btn-light btn-outline-dark confirm" type="button" onClick={handleCheckserial}>시리얼 확인</button>
                     </div>
-
+                    <div>창문 이름</div>
+                    <input className="form-control" type="text" name="windowName" value={windowName} onChange={handleWindowName}/>
+                    <div></div> 
                     <div></div>
                     <button className="mt-2 btn btn-primary" onClick={onClickRegister}>계정 생성</button>
                 </div>

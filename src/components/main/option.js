@@ -7,7 +7,7 @@ function Option() {
     const [temp, setTemp] = useState('')
     const [humid, setHumid] = useState('')
     const [dust, setDust] = useState('')
-    const [winlist, setWinlist] = useState(['sw-001', 'sw-002', 'sw-003'])
+    const [winlist, setWinlist] = useState([{}])
     useEffect(() => {
         axios.post('/main/option-data', { serialNum: serial.serial })
             .then(res => {
@@ -18,8 +18,13 @@ function Option() {
             .catch(e => {
                 console.error(e)
             })
+        axios.post('/main/control/data-list',{ID:serial.id})
+            .then((res)=>{
+                console.log(res.data)
+                //setWinlist(res.data.serialList)
+            })
     }, [])
-
+    
     const handleTemp = (e) => {
         setTemp(e.target.value)
     }
@@ -63,11 +68,11 @@ function Option() {
                     {serial.serial}
                 </button>
                 <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    {
+{/*                     {
                         winlist.map((name, idx) => (
                             <li key={idx}><a className="dropdown-item" href={`/main/option/${serial.id}/${name}`}>{name}</a></li>
                         ))
-                    }
+                    } */}
                 </ul>
                 <button type="button" className="btn btn-danger C-btn-logout" onClick={logout}>로그아웃</button>
             </div>
@@ -79,10 +84,6 @@ function Option() {
                 <input type="number" min='0' max='100' step="1" onChange={handleHumid} value={humid} />
                 <div>미세먼지</div>
                 <input type="number" min='0' max='100' step="1" onChange={handleDust} value={dust} />
-                {/*<div className="form-check form-switch">
-                    <input className="form-check-input" type="checkbox" />
-                    <label className="form-check-label">비가 오면 창문을 닫을까요?</label>
-                </div> */}
                 <button type="button" className="C-savebtn btn btn-primary" onClick={handleput}>저장</button>
             </div>
         </div>
