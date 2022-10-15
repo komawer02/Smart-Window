@@ -84,7 +84,7 @@ function Control() {
     const handlestateclose = () => { setState('close') }
     const handleinputserial = (e) => {
         setInputserial(e.target.value)
-        serialcheck(false)
+        setSerialcheck(false)
     }
     const handleinputname = (e) => {
         setInputname(e.target.value)
@@ -138,7 +138,7 @@ function Control() {
                 setState(res.data.state)
             })
             .catch((e) => {
-                console.log('useQuery 에러')
+                console.log('control post 오류')
                 console.log(e)
             })
     }
@@ -213,9 +213,8 @@ function Control() {
                             </div>
                             {
                                 serialcheck?
+                                <div className="text-success text-start">시리얼 번호가 유효합니다.</div>:
                                 <div className='text-danger text-start'>시리얼 번호를 확인하십시오.</div>
-                                :
-                                <div className="text-success text-start">시리얼 번호가 유효합니다.</div>
                             }
                             <input type="text" placeholder={'창문 이름을 입력하세요.'} style={{ width: '80%' }} onChange={handleinputname}></input>
                             <button className='btn btn-primary' type='button' onClick={addwindow}>추가</button>
