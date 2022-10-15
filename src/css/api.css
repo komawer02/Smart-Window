@@ -4,6 +4,10 @@
 }
 .C-apifulldiv{
     display: flex;
+    font-size:smaller;
+    padding:0.5rem;
+    font-weight: bolder;
+    column-gap:1.5rem;
 }
 .C-apifulldiv > div{
     text-align: center;

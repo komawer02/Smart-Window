@@ -10,3 +10,14 @@
     margin-left: 1rem;
     text-align: end;
 }
+.C-mainnav{
+    position: sticky;
+    top:0;
+    background-color: white;
+    z-index: 3;
+}
+header{
+    display: flex;
+    justify-content: space-between;
+    
+}

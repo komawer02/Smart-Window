@@ -6,9 +6,9 @@ function Main() {
     
     return (
         <div>
-            <div className="container">
-                <header className="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-                    <div className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+            <div className="C-mainnav container">
+                <header className="py-3 mb-1 border-bottom">
+                    <div>
                         <Link to={'/main/control/' + serial.id + '/' + serial.serial}><label className="fs-4 text-black" style={{ cursor: 'pointer' }}>Smart Window</label></Link>
                         {
                             window.location.pathname === `/main/option/${serial.id}/${serial.serial}` ?
@@ -20,10 +20,10 @@ function Main() {
                     </div>
                     <ul className="nav nav-pills">
                         <li className="nav-item">
-                            <div className="menuimg"><Link to={'/main/option/' + serial.id + '/' + serial.serial}><img style={{ cursor: 'pointer' }} src="/setting.png" width="40" alt='option' /></Link></div>
+                            <div className="menuimg"><Link to={'/main/option/' + serial.id + '/' + serial.serial}><img style={{ cursor: 'pointer' }} src="/setting.png" width="30vx" alt='option' /></Link></div>
                         </li>
                         <li className="nav-item">
-                            <div className="menuimg"><Link to={'/main/log/' + serial.id + '/' + serial.serial}><img style={{ cursor: 'pointer' }} src="/menu-bar.png" width="40" alt='log' /></Link></div>
+                            <div className="menuimg"><Link to={'/main/log/' + serial.id + '/' + serial.serial}><img style={{ cursor: 'pointer' }} src="/menu-bar.png" width="30vx" alt='log' /></Link></div>
                         </li>
                     </ul>
                 </header>

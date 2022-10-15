@@ -24,7 +24,7 @@ const getbasetime = (basedate) => {
 }
 
 function Api() {
-    const basedate = new Date()
+    const [basedate] = useState(new Date())
     const url = 'http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst'
     const serviceKey = '?serviceKey=pNRmr6eKwvqN4AhTcPUJSjrh%2B1tuTg%2FRnjUW5wOPgKxR8iyzz7BOt60r54l7cvhfDX9fZFmcK4cjSt0GG3FUSg%3D%3D'
     const pageNo = '&pageNo=1'
@@ -37,6 +37,7 @@ function Api() {
     const nx = '&nx=62'
     const ny = '&ny=122'
     const [apidata, setApidata] = useState([]);
+    let interval
 
     useEffect(() => {
         axios.get(url + serviceKey + pageNo + numOfRows + dataType + base_d + base_date + base_t + base_time + nx + ny)
@@ -46,8 +47,7 @@ function Api() {
             .catch((e) => {
                 console.error(e)
             })
-
-        let interval = setInterval(() => {
+        interval = setInterval(() => {
             axios.get(url + serviceKey + pageNo + numOfRows + dataType + base_d + base_date + base_t + base_time + nx + ny)
                 .then((res) => {
                     setApidata(res.data.response.body.items.item)
@@ -81,13 +81,13 @@ function Api() {
 
 function Weatherdiv(props) {
     return (
-        <div>
+        <div className="C-apidivs mt-2">
             {
                 props.time>23 ?
                 <div>{props.time-24}시</div>:
                 <div>{props.time}시</div>
             }
-            <Weatherimg img={props.img} />
+            <Weatherimg img={props.img} time={props.time}/>
             <Weathertemp temperature={props.temp} />
             <Weatherrain rain={props.rain} />
         </div>
@@ -96,27 +96,33 @@ function Weatherdiv(props) {
 
 function Weatherimg(props) {
     return (
-        <p>
+        <div>
             {
                 props.img == 4 ?
                     <img className="C-apiimg" src="/cloud.png" /> :
                     props.img == 3 ?
-                        <img className="C-apiimg" src='/cloud-sun.png' /> :
+                        props.time>5&&props.time<19?
+                            <img className="C-apiimg" src='/cloud-sun.png' /> :
+                            <img className="C-apiimg" src='/cloud-moon.png'/>
+                        :
                         props.img == 1 ?
-                            <img className="C-apiimg" src='/sun.png' /> :
+                            props.time>5&&props.time<19?
+                                <img className="C-apiimg" src='/sun.png' /> :
+                                <img className="C-apiimg" src='/moon.png'/>
+                                :
                             props.img == 5 ?
                                 <img className="C-apiimg" src='/rain.png' /> :
                                 <p>img 에러</p>
             }
-        </p>
+        </div>
     )
 }
 
 function Weathertemp(props) {
     return (
-        <p>
+        <div>
             온도 : {props.temperature}
-        </p>
+        </div>
     )
 }
 
@@ -129,9 +135,9 @@ function Weatherrain(props) {
         rain = props.rain
     }
     return (
-        <p>
+        <div>
             강수량 : {rain}
-        </p>
+        </div>
     )
 }
 

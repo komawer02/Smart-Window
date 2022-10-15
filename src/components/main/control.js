@@ -88,21 +88,27 @@ function Control() {
     }
     const handleinputname = (e) => {
         setInputname(e.target.value)
+
     }
 
     const addwindow = () => {
         if (serialcheck) {
-            axios.post('/main/add-window', {
-                ID: serial.id,
-                serialNum: inputserial,
-                location: inputname
-            })
-                .then(res => {
-                    window.location.replace(`/main/control/${serial.id}/${serial.serial}`)
+            if (inputname !== '') {
+                axios.post('/main/add-window', {
+                    ID: serial.id,
+                    serialNum: inputserial,
+                    location: inputname
                 })
-                .catch(e => {
-                    console.error(e)
-                })
+                    .then(res => {
+                        window.location.replace(`/main/control/${serial.id}/${serial.serial}`)
+                    })
+                    .catch(e => {
+                        console.error(e)
+                    })
+            }
+            else {
+                alert('명칭을 입력해주십시오.')
+            }
         }
         else {
             alert('시리얼 번호를 다시 확인하십시오.')
@@ -116,13 +122,14 @@ function Control() {
             .then((res) => {
                 if (res.data) {
                     setSerialcheck(true)
+                    console.log('시리얼 체크 완료')
                 }
                 else {
-                    setSerialcheck(false)
+                    console.log('시리얼 체크 실패')
                 }
             })
             .catch(e => {
-                alert('시리얼 등록 에러')
+                alert('시리얼 체크 에러')
                 console.error(e);
             })
     }
@@ -145,6 +152,42 @@ function Control() {
 
     return (
         <div className="statebody">
+            <div className="mb-2">
+                <button className="btn btn-primary dropdown-toggle C-dropdown-control" id="selectwindow" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                    {winlist.map((name, idx) => {
+                        if (name.serialNum === serial.serial) {
+                            return (<>{name.location}</>)
+                        }
+                    })}
+                </button>
+                <ul className="dropdown-menu C-dropdown-menu" aria-labelledby="selectwindow">
+                    {winlist != null ?
+                        winlist.map((name, idx) => (
+                            //<li key={idx}>확인용{name.serialNum}</li>
+                            <li key={idx}><a className="dropdown-item" href={`/main/control/${serial.id}/${name.serialNum}`}>{name.location}</a></li>
+                        )) : <p>시리얼 번호 로드중...</p>
+                    }
+                    <hr />
+                    <div className='C-dropdown-add-div'>
+                        <div className='C-dropdown-add-serial'>
+                            <input type="text" placeholder={'시리얼 번호를 입력하세요.'} style={{ width: '80%' }} onChange={handleinputserial}></input>
+                            <button className='btn btn-primary' type='button' onClick={checkserial}>확인</button>
+                        </div>
+                        {
+                            serialcheck ?
+                                <div className="text-success text-start lp-1">시리얼 번호가 유효합니다.</div> :
+                                <div className='text-danger text-start lp-1'>시리얼 번호를 확인하십시오.</div>
+                        }
+                        <input type="text" placeholder={'창문 이름을 입력하세요.'} style={{ width: '80%' }} onChange={handleinputname}></input>
+                        {
+                            inputname !== '' ?
+                                null :
+                                <div className="text-danger text-start">이름을 입력하십시오.</div>
+                        }
+                        <button className='btn btn-primary' type='button' onClick={addwindow}>추가</button>
+                    </div>
+                </ul>
+            </div>
             <div id="statecomponent">
                 <div className='imgdiv'>
                     {
@@ -162,18 +205,18 @@ function Control() {
                 </div>
                 <div className="statenumber">
                     <div className="statenumbers">온도</div>
-                    <div className="input-group">
-                        <input type="text" className="form-control" value={temperature} readOnly />
+                    <div className="C-input-group">
+                        <input type="text" className="form-control C-form-control" value={temperature} readOnly />
                         <span className="input-group-text">&deg;C</span>
                     </div>
                     <div className="statenumbers">습도</div>
-                    <div className="input-group">
-                        <input type="text" className="form-control" value={humidity} readOnly />
+                    <div className="C-input-group">
+                        <input type="text" className="form-control C-form-control" value={humidity} readOnly />
                         <span className="input-group-text">%</span>
                     </div>
                     <div className="statenumbers">미세먼지</div>
-                    <div className="input-group">
-                        <input type="text" className="form-control" value={dust} readOnly />
+                    <div className="C-input-group">
+                        <input type="text" className="form-control C-form-control" value={dust} readOnly />
                         <span className="input-group-text" style={{ fontSize: 'small' }}>㎍/㎥</span>
                     </div>
                     <div className="statenumbers">가스</div>
@@ -189,42 +232,11 @@ function Control() {
             </div>
 
             <div className="controlcomponent">
-                <APIcomponent />
-                <div>
-                    <button className="btn btn-secondary dropdown-toggle C-dropdown-control" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        {winlist.map((name, idx) => {
-                            if (name.serialNum === serial.serial) {
-                                return (<>{name.location}</>)
-                            }
-                        })}
-                    </button>
-                    <ul className="dropdown-menu C-dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        {winlist != null ?
-                            winlist.map((name, idx) => (
-                                //<li key={idx}>확인용{name.serialNum}</li>
-                                <li key={idx}><a className="dropdown-item" href={`/main/control/${serial.id}/${name.serialNum}`}>{name.location}</a></li>
-                            )) : <p>시리얼 번호 로드중...</p>
-                        }
-                        <hr />
-                        <div>
-                            <div>
-                                <input type="text" placeholder={'시리얼 번호를 입력하세요.'} style={{ width: '80%' }} onChange={handleinputserial}></input>
-                                <button className='btn btn-primary' type='button' onClick={checkserial}>확인</button>
-                            </div>
-                            {
-                                serialcheck?
-                                <div className="text-success text-start">시리얼 번호가 유효합니다.</div>:
-                                <div className='text-danger text-start'>시리얼 번호를 확인하십시오.</div>
-                            }
-                            <input type="text" placeholder={'창문 이름을 입력하세요.'} style={{ width: '80%' }} onChange={handleinputname}></input>
-                            <button className='btn btn-primary' type='button' onClick={addwindow}>추가</button>
-                        </div>
-                    </ul>
-                </div>
                 {/*                 <Dropdowncomponent serial={serial} winlist={winlist} inputserial={inputserial} inputname={inputname}
                     checkserial={checkserial} setInputserial={setInputserial} setInputname={setInputname}/> */}
                 <AutoComponenet mode={mode} onClickoff={handlemodeoff} onClickon={handlemodeon} />
                 <Openclosecomponent mode={mode} state={state} onClickopen={handlestateopen} onClickclose={handlestateclose}></Openclosecomponent>
+                    <APIcomponent />
             </div>
         </div>
     )

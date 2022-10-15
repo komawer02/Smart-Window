@@ -7,43 +7,27 @@
   .apicomponent :last-child{
     margin-right:0;
   }
-    .api{
-      margin-top:3rem;
-      border: 1px solid #000;
-      display: flex;
-      margin-bottom: 1rem;
-      padding: 1rem;
-      background-color: lightgray;
-      font-size:large;
-      color: black;
-      height: 220px;
-      width: 500px;
-    }
   .input-group-text{
-    width:3rem;
+    width:4rem;
     padding:0;
     justify-content: center;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
   }
   .statenumber {
     display: grid;
-    grid-template-columns: 4.5rem 7rem 4.5rem 7rem;
-    margin-top: 3rem;
-    margin-bottom: 2rem;
+    grid-template-columns: 4rem 4.5rem 4rem 4.5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
     row-gap: 0.5rem;
     align-items: center;
+    margin-right: 3rem;
   }
   .statenumbers{
     text-align:right;
     font-weight: bold;
     margin-right:0.5rem;
-  }
-  .wetherdiv {
-    color: white;
-    text-align: center;
-    background-color: gray;
-    height: 200px;
-    width: 500px;
-    margin-bottom: 1rem;
+    font-size:0.8rem;
   }
   
   .statebody {
@@ -75,8 +59,8 @@
   }
   .imgdiv{
     position: relative;
-    width:20rem;
-    height: 20rem;
+    width:10rem;
+    height: 10rem;
     overflow: hidden;
   }
   .C-dropdown-control{
@@ -84,9 +68,31 @@
   }
   .C-dropdown-menu{
     width: 25rem;
-    text-align: center;
   }
   .C-dropdown-div-input{
     display: flex;
     justify-content: center;
+  }
+  .C-dropdown-add-div{
+    display: grid;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .C-dropdown-add-serial{
+    display: flex;
+    justify-content: space-between;
+  }
+  .C-input-group{
+    display: flex;
+  }
+  .C-form-control{
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    text-align: center;
+  }
+  .C-autobtn{
+    column-gap: 1rem;
+  }
+  .form-control{
+    padding:0.1rem;
   }

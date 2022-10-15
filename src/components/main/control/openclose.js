@@ -3,7 +3,7 @@ function Openclosecomponent ({mode,state,onClickopen,onClickclose})  {
         <>
             {
                 mode === 'on' ? null :
-                    state === 'close' ?
+                    state === 'close' ? 
                         <div className="C-openclosebtn">
                             <button type="button" className="btn btn-outline-dark" onClick={()=>{onClickopen()}}>Open</button>
                             <button type="button" className="btn btn-secondary" disabled>Close</button>
