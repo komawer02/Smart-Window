@@ -1,5 +1,5 @@
 .C-apiimg{
-    width: 5rem;
+    width: 15vw;
     height: auto;
 }
 .C-apifulldiv{
@@ -7,8 +7,9 @@
     font-size:smaller;
     padding:0.5rem;
     font-weight: bolder;
-    column-gap:1.5rem;
+    column-gap:6vw;
 }
 .C-apifulldiv > div{
     text-align: center;
+    font-size:3.5vw;
 }

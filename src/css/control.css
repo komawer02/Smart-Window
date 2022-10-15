@@ -64,10 +64,10 @@
     overflow: hidden;
   }
   .C-dropdown-control{
-    width: 30rem;
+    width: 90vw;
   }
   .C-dropdown-menu{
-    width: 25rem;
+    width: 90vw;
   }
   .C-dropdown-div-input{
     display: flex;
@@ -75,8 +75,8 @@
   }
   .C-dropdown-add-div{
     display: grid;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: 2vw;
+    padding-right: 2vw;
   }
   .C-dropdown-add-serial{
     display: flex;
@@ -95,4 +95,7 @@
   }
   .form-control{
     padding:0.1rem;
+  }
+  .form-check-input{
+    cursor: pointer;
   }

@@ -4,17 +4,19 @@
     justify-content: space-around;
     align-items: center;
     background-color: #f5f5f5;
+    padding-top: 5vh;
+    padding-bottom: 5vh;
   }
 
 .rootdiv{
     background-color: rgba(255,255,255,0.5);
     text-align: center;
-    padding : 2rem;
-    padding-left:5rem;
-    padding-right: 5rem;
-    border-radius: 5px;
+    padding: 2vw;
+    padding-left: 6vw;
+    padding-right: 6vw;
+    border-radius: 1rem;
     animation: fadein 2s;
-    font-size: 1.7rem;
+    font-size: 3vw;
 }
 
 @keyframes fadein{
@@ -31,9 +33,9 @@
 .imgbackground{
     background-image: url('/public/rootback.jpg');
     background-size: cover;
-    padding: 5rem;
+    padding: 5vw;
     background-repeat: no-repeat;
 }
 .C-rootbtn{
-    min-width: 74px;
+    font-size: 1.7vw;
 }

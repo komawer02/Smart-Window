@@ -12,19 +12,11 @@
     text-align: center;
 }
 
-.body {
-    height: 100%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    background-color: #f5f5f5;
-    padding-top: 40px;
-    padding-bottom: 40px;
-}
 .confirmdiv{
     align-self: normal;
 }
 
 .confirm{
     position: absolute;
+    font-size: 1vw;
 }

@@ -7,9 +7,10 @@
     margin-bottom: auto;
 }
 .C-loginfo{
-    margin-left:4rem;
-    margin-right:4rem;
+    margin-left: 3vw;
+    margin-right: 3vw;
     border-radius: 5px;
+    font-size: 4vw;
 }
 .C-logtable{
     border-bottom:3px solid black;

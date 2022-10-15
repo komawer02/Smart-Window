@@ -151,8 +151,8 @@ function Control() {
     }
 
     return (
-        <div className="statebody">
-            <div className="mb-2">
+        <div>
+            <div className="mb-2 text-center">
                 <button className="btn btn-primary dropdown-toggle C-dropdown-control" id="selectwindow" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
                     {winlist.map((name, idx) => {
                         if (name.serialNum === serial.serial) {
