@@ -14,6 +14,7 @@
     padding-right: 5rem;
     border-radius: 5px;
     animation: fadein 2s;
+    font-size: 1.7rem;
 }
 
 @keyframes fadein{
@@ -32,4 +33,7 @@
     background-size: cover;
     padding: 5rem;
     background-repeat: no-repeat;
+}
+.C-rootbtn{
+    min-width: 74px;
 }

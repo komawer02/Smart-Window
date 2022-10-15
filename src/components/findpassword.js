@@ -1,6 +1,7 @@
 import '../css/findpassword.css'
 import axios from "axios"
 import { useState } from "react"
+import { Link } from 'react-router-dom'
 
 function FindPassword() {
     const [id, setId] = useState('')
@@ -32,23 +33,26 @@ function FindPassword() {
             })
     }
     return (
-        <div className='body'>
-            <div className="C-findpassworddiv">
-                <h1>비밀번호 찾기</h1>
-                <hr />
-                <div>
-                    <div className="form-floating">
-                        <input className="form-control" name="serial" value={id} onChange={handleId} />
-                        <label htmlFor="floatingInput">ID</label>
+        <>
+            <Link to={'/login'}><img className="C-backbtn" src="/arrow.png" width="20" alt='back' /></Link>
+            <div className='body'>
+                <div className="C-findpassworddiv">
+                    <h1>비밀번호 찾기</h1>
+                    <hr />
+                    <div>
+                        <div className="form-floating">
+                            <input className="form-control" name="serial" value={id} onChange={handleId} />
+                            <label htmlFor="floatingInput">ID</label>
+                        </div>
+                        <div className="form-floating">
+                            <input className="form-control" name="serial" value={serial} onChange={handleserial} />
+                            <label htmlFor="floatingInput">시리얼 번호</label>
+                        </div>
                     </div>
-                    <div className="form-floating">
-                        <input className="form-control" name="serial" value={serial} onChange={handleserial} />
-                        <label htmlFor="floatingInput">시리얼 번호</label>
-                    </div>
+                    <button className="btn btn-primary" onClick={findpassword}>비밀번호 찾기</button>
                 </div>
-                <button className="btn btn-primary" onClick={findpassword}>비밀번호 찾기</button>
             </div>
-        </div>
+        </>
     )
 }
 export default FindPassword

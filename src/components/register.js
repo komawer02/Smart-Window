@@ -1,6 +1,7 @@
 import '../css/register.css'
 import { useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const Checkpwdcomp = () => {
     return (
@@ -17,7 +18,7 @@ function Register() {
     const [checkid, setCheckid] = useState(false);
     const [serial, setSerial] = useState('');
     const [checkserial, setCheckserial] = useState(false);
-    const [windowName,setWindowName] = useState('')
+    const [windowName, setWindowName] = useState('')
 
     const handleId = (e) => {
         setCheckid(false)
@@ -33,7 +34,7 @@ function Register() {
         setCheckserial(false)
         setSerial(e.target.value)
     }
-    const handleWindowName = (e)=>{
+    const handleWindowName = (e) => {
         setWindowName(e.target.value)
     }
 
@@ -47,7 +48,7 @@ function Register() {
                                 ID: id,
                                 Password: pwd,
                                 serialNum: serial,
-                                location : windowName
+                                location: windowName
                             })
                                 .then((res) => {
                                     if (res.data) {
@@ -106,6 +107,8 @@ function Register() {
             })
     }
     return (
+        <>
+            <Link to={'/login'}><img className="C-backbtn" src="/arrow.png" width="20" alt='back' /></Link>
         <div className="body">
             <div className="adduser">
                 <h1 className="h2 mb-3 text-center fw-normal">회원가입</h1>
@@ -130,13 +133,14 @@ function Register() {
                         <button className="ml-1 btn btn-light btn-outline-dark confirm" type="button" onClick={handleCheckserial}>시리얼 확인</button>
                     </div>
                     <div>창문 이름</div>
-                    <input className="form-control" type="text" name="windowName" value={windowName} onChange={handleWindowName}/>
-                    <div></div> 
+                    <input className="form-control" type="text" name="windowName" value={windowName} onChange={handleWindowName} />
+                    <div></div>
                     <div></div>
                     <button className="mt-2 btn btn-primary" onClick={onClickRegister}>계정 생성</button>
                 </div>
             </div>
         </div>
+        </>
     )
 }
 

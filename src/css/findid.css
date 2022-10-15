@@ -12,3 +12,10 @@
     flex-direction: column;
     row-gap: 1rem;
 }
+.C-backbtn{
+    position: fixed;
+    cursor: pointer;
+    top:20px;
+    left:10px;
+    transform: scaleX(-1);
+}

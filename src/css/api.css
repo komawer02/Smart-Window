@@ -1,0 +1,10 @@
+.C-apiimg{
+    width: 5rem;
+    height: auto;
+}
+.C-apifulldiv{
+    display: flex;
+}
+.C-apifulldiv > div{
+    text-align: center;
+}

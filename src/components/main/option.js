@@ -18,13 +18,12 @@ function Option() {
             .catch(e => {
                 console.error(e)
             })
-        axios.post('/main/control/data-list',{ID:serial.id})
-            .then((res)=>{
-                console.log(res.data)
-                //setWinlist(res.data.serialList)
+        axios.post('/main/control/data-list', { ID: serial.id })
+            .then((res) => {
+                setWinlist(res.data.serialList)
             })
     }, [])
-    
+
     const handleTemp = (e) => {
         setTemp(e.target.value)
     }
@@ -65,19 +64,24 @@ function Option() {
                 자동 모드 작동 상황에서 어떤 상황에서 창문을 닫을지 설정하는 페이지입니다.</div>
             <div className="dropdown C-dropdown d-flex justify-content-between">
                 <button className="btn btn-white btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    {serial.serial}
+                {winlist.map((name,idx)=>{
+                    if(name.serialNum===serial.serial)
+                    {
+                        return(<>{name.location}</>)
+                    }
+                    })}
                 </button>
                 <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-{/*                     {
+                    {winlist != null ?
                         winlist.map((name, idx) => (
-                            <li key={idx}><a className="dropdown-item" href={`/main/option/${serial.id}/${name}`}>{name}</a></li>
-                        ))
-                    } */}
+                            //<li key={idx}>확인용{name.serialNum}</li>
+                            <li key={idx}><a className="dropdown-item" href={`/main/option/${serial.id}/${name.serialNum}`}>{name.location}</a></li>
+                        )) : <p>로드중...</p>
+                    }
                 </ul>
                 <button type="button" className="btn btn-danger C-btn-logout" onClick={logout}>로그아웃</button>
             </div>
             <div className="C-optionsdiv">
-
                 <div>온도</div>
                 <input type="number" min='-100' max='100' step="1" onChange={handleTemp} value={temp} />
                 <div>습도</div>

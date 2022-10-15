@@ -8,3 +8,10 @@ html,body{
 #root{
   height:100%;
 }
+.C-backbtn{
+  position: fixed;
+  cursor: pointer;
+  top:20px;
+  left:10px;
+  transform: scaleX(-1);
+}

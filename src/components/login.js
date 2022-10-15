@@ -55,7 +55,7 @@ function Login() {
                         <button type="button" className="btn btn-primary text-center" onClick={onClickLogin}>로그인</button>
                     </div>
                 </div>
-                <hr />
+                <hr/>
                 <Link to="/register"><p>회원가입</p></Link>
                 <Link to="/find-id">아이디 찾기</Link> / <Link to="/find-password">비밀번호 찾기</Link>
                 {/*<Link to="/" */}
