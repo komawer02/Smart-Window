@@ -62,7 +62,7 @@ function Option() {
         <div>
             <div className="text-center p-3 mb-2 bg-secondary text-white C-info">
                 자동 모드 작동 상황에서 어떤 상황에서 창문을 닫을지 설정하는 페이지입니다.</div>
-            <div className="dropdown C-dropdown d-flex justify-content-between mb-2">
+            <div className="dropdown C-dropdown d-flex justify-content-between">
                 <button className="btn btn-white btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                 {winlist.map((name,idx)=>{
                     if(name.serialNum===serial.serial)

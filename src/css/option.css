@@ -22,4 +22,8 @@
 .C-dropdown{
     margin-left:3vw;
     margin-right:3vw;
+    margin-bottom: 7rem;
+}
+.C-btn-logout{
+    font-size:4vw;
 }
