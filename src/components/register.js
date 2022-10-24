@@ -76,6 +76,10 @@ function Register() {
                     setCheckid(false)
                     alert("아이디가 중복입니다.")
                 }
+                else if(id===''){
+                    setCheckid(false)
+                    alert('아이디를 입력하십시오.')
+                }
                 else {
                     setCheckid(true)
                     alert("사용 가능한 아이디입니다.")
