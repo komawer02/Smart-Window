@@ -9,21 +9,18 @@ app.set('view engine', 'ejs')
 require('dotenv').config();
 const path = require('path');
 
-const http = require('http').createServer(app);
-const { Server } = require("socket.io");
-const io = new Server(http);
-
 
 var db; 
 
 MongoClient.connect(process.env.DB_URL, { useUnifiedTopology: true }, function(에러, client){  
     if(에러) return console.log(에러)
 
+    var port = process.env.PORT || 3000;
     db = client.db('smartwindow');
 
     app.db = db;
     
-    http.listen(8080, function() {
+    app.listen(port, function() {
         console.log('open server')
     });
 });
