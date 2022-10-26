@@ -34,12 +34,6 @@ p{
         opacity: 1;
     }
 }
-.imgbackground{
-    background-image: url('/public/rootback.jpg');
-    background-size: cover;
-    padding: 5vw;
-    background-repeat: no-repeat;
-}
 .C-rootimg{
     width: 50vw;
 }

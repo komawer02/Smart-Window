@@ -5,7 +5,7 @@ import Openclosecomponent from './control/openclose';
 
 //import weatherapi from './api';
 import axios from 'axios';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 function APIcomponent() {

@@ -35,6 +35,8 @@ function Option() {
     }
 
     const logout = () => {
+        localStorage.removeItem('ID')
+        localStorage.removeItem('PWD')
         window.location.replace('/auth/logout')
     }
 

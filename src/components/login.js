@@ -27,6 +27,8 @@ function Login() {
         })
             .then(res => {
                 if (res.data.pass) {
+                    localStorage.setItem('ID',id)
+                    localStorage.setItem('PWD',pwd)
                     navigate(`/main/control/${id}/${res.data.data[0].serialNum}`)
                 }
                 else {
