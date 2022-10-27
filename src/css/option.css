@@ -27,3 +27,15 @@
 .C-btn-logout{
     font-size:4vw;
 }
+.C-optiontable{
+    position: absolute;
+    font-size: 2vw;
+    width: 60vw;
+    left:50%;
+    transform: translate(-50%,-40%);
+    color: darkred;
+}
+.C-optiontablediv{
+    grid-column: 1/3;
+    text-align: center;
+}

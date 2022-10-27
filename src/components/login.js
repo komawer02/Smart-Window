@@ -5,9 +5,6 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 
 function Login() {
-    useEffect(()=>{
-        console.log('로그인 마운트')
-    })
     const [id, setId] = useState('') //id 저장
     const [pwd, setPwd] = useState('') //password 저장
 
@@ -61,6 +58,9 @@ function Login() {
                 <Link to="/register"><p>회원가입</p></Link>
                 <Link to="/find-id">아이디 찾기</Link> / <Link to="/find-password">비밀번호 찾기</Link>
                 {/*<Link to="/" */}
+                <div>
+                    
+                </div>
             </main>
         </div>
     )

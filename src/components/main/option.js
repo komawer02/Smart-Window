@@ -6,14 +6,12 @@ function Option() {
     const serial = useParams()
     const [temp, setTemp] = useState('')
     const [humid, setHumid] = useState('')
-    const [dust, setDust] = useState('')
     const [winlist, setWinlist] = useState([{}])
     useEffect(() => {
         axios.post('/main/option-data', { serialNum: serial.serial })
             .then(res => {
                 setTemp(res.data.temp)
                 setHumid(res.data.humid)
-                setDust(res.data.dust)
             })
             .catch(e => {
                 console.error(e)
@@ -30,9 +28,6 @@ function Option() {
     const handleHumid = (e) => {
         setHumid(e.target.value)
     }
-    const handleDust = (e) => {
-        setDust(e.target.value)
-    }
 
     const logout = () => {
         localStorage.removeItem('ID')
@@ -44,15 +39,13 @@ function Option() {
         axios.put('/main/option-change', {
             serialNum: serial.serial,
             temp: temp,
-            humid: humid,
-            dust: dust
+            humid: humid
         })
             .then(res => {
                 alert("기준치가 다시 설정되었습니다.")
                 console.log('시리얼 : ' + serial.serial)
                 console.log('온도 : ' + temp)
                 console.log('습도 : ' + humid)
-                console.log('먼지 : ' + dust)
             })
             .catch(e => {
                 alert("기준치 설정 에러")
@@ -86,10 +79,14 @@ function Option() {
             <div className="C-optionsdiv">
                 <div>온도</div>
                 <input type="number" min='-100' max='100' step="1" onChange={handleTemp} value={temp} />
+                <div className='C-optiontablediv'>
+                    <label className='C-optiontable'>실내 적정 온도 : 겨울철 : 20~22 여름철 24~26 봄/가을 : 18~20</label>
+                </div>
                 <div>습도</div>
                 <input type="number" min='0' max='100' step="1" onChange={handleHumid} value={humid} />
-                <div>미세먼지</div>
-                <input type="number" min='0' max='100' step="1" onChange={handleDust} value={dust} />
+                <div className='C-optiontablediv'>
+                    <label className='C-optiontable'>실내 적정 습도 : 40~60%</label>
+                </div>
                 <button type="button" className="C-savebtn btn btn-primary" onClick={handleput}>저장</button>
             </div>
         </div>

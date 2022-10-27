@@ -99,3 +99,6 @@
   .form-check-input{
     cursor: pointer;
   }
+  .C-gas{
+    grid-column:2/5;
+  }

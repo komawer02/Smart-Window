@@ -20,7 +20,7 @@ function Control() {
     const [rain, setRain] = useState(''); //str : true,false
     const [temperature, setTemperature] = useState(''); //str
     const [humidity, setHumidity] = useState(''); //str
-    const [dust, setDust] = useState(''); //str
+    //const [dust, setDust] = useState(''); //str
     const [gas, setGas] = useState(''); //str : true,false
     const [state, setState] = useState(''); //str : open, close
     const [mode, setMode] = useState(''); //str : on, off
@@ -28,12 +28,25 @@ function Control() {
     const [serialcheck, setSerialcheck] = useState(false)
     const [inputserial, setInputserial] = useState('')
     const [inputname, setInputname] = useState('')
+    const [tempstate, setTempstate] = useState('')
 
     var interval
     const serial = useParams();
 
     useEffect(() => {
-        postmaindata()
+        axios.post('/main/control/data', { serialNum: serial.serial })
+        .then((res) => {
+            setRain(res.data.rain)
+            setTemperature(res.data.temp)
+            setHumidity(res.data.humid)
+            //setDust(res.data.dust)
+            setGas(res.data.gas)
+            setState(res.data.state)
+        })
+        .catch((e) => {
+            console.log('control post 오류')
+            console.log(e)
+        })
         axios.post('/main/control/data-list', { ID: serial.id })
             .then((res) => {
                 setWinlist(res.data.serialList)
@@ -54,7 +67,7 @@ function Control() {
                 .catch(e => {
                     console.error(e)
                 })
-        }, 1000 * 5)
+        }, 1000 * 3)
         return (() =>
             clearInterval(interval)
         )
@@ -70,18 +83,24 @@ function Control() {
     }, [mode])
 
     useEffect(() => {
-        if (state === 'close' || state === 'open') {
-            axios.put('/main/state-change', { serialNum: serial.serial, state: state })
+        if (tempstate === 'close' || tempstate === 'open') {
+            axios.put('/main/state-change', { serialNum: serial.serial, state: tempstate })
                 .catch(e => {
                     console.error(e)
                 })
         }
-    }, [state])
+    }, [tempstate])
 
     const handlemodeon = () => { setMode('on') }
     const handlemodeoff = () => { setMode('off') }
-    const handlestateopen = () => { setState('open') }
-    const handlestateclose = () => { setState('close') }
+    const handlestateopen = () => { 
+        setTempstate('open') 
+        setState('active_c')
+    }
+    const handlestateclose = () => { 
+        setTempstate('close') 
+        setState('active_c')
+    }
     const handleinputserial = (e) => {
         setInputserial(e.target.value)
         setSerialcheck(false)
@@ -140,15 +159,19 @@ function Control() {
                 setRain(res.data.rain)
                 setTemperature(res.data.temp)
                 setHumidity(res.data.humid)
-                setDust(res.data.dust)
+                //setDust(res.data.dust)
                 setGas(res.data.gas)
-                setState(res.data.state)
+                if((state==='active_c' && res.data.state==='active') || (state==='active' && (res.data.state==='open' || res.data.state==='close')))
+                {
+                    setState(res.data.state)
+                }
             })
             .catch((e) => {
                 console.log('control post 오류')
                 console.log(e)
             })
     }
+
 
     return (
         <div>
@@ -199,7 +222,11 @@ function Control() {
                         //이미지 겹처서 : rain이면 창 밖에 비오는 그림, state이면 창문 열고 닫히는거(창문 background는 투명)
                         state === 'close' ?
                             <img src="/close.png" className='winimg' alt='weather' /> :
-                            <img src="/open.png" className="winimg" alt='weather' />
+                            state === 'open'?
+                            <img src="/open.png" className="winimg" alt='weather' />:
+                            state==='active' || state==='active_c' ?
+                            <img src="/arrow.png" className='winimg' alt='weather'/>:
+                            <p>이미지 로딩 오류</p>
                     }
 
                 </div>
@@ -214,16 +241,16 @@ function Control() {
                         <input type="text" className="form-control C-form-control" value={humidity} readOnly />
                         <span className="input-group-text">%</span>
                     </div>
-                    <div className="statenumbers">미세먼지</div>
+{/*                    <div className="statenumbers">미세먼지</div>
                     <div className="C-input-group">
                         <input type="text" className="form-control C-form-control" value={dust} readOnly />
                         <span className="input-group-text" style={{ fontSize: 'small' }}>㎍/㎥</span>
-                    </div>
+                    </div> */}
                     <div className="statenumbers">가스</div>
-                    <div className="input-group">
+                    <div className="input-group C-gas">
                         {
                             gas === 'true' ?
-                                <input type="text" className="form-control bg-danger text-white" value='위험' readOnly /> :
+                                <input type="text" className="form-control bg-danger text-white text-center" value='위험' readOnly /> :
                                 <input type="text" className="form-control bg-success text-white text-center" value='안전' readOnly />
                         }
                         {/* 가스가 true이면 위험(빨간색), false이면 안전(초록색) */}
