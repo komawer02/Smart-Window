@@ -21,7 +21,7 @@ router.get('/register', (req, res) => {
     })
 
     // 처음 설치할때 디폴트 기준값
-    req.app.db.collection('option').insertOne({serialNum : req.query.serialNum, temp : '27', humid : '70'}, (err, result) => {
+    req.app.db.collection('option').insertOne({serialNum : req.query.serialNum, temp : '27', humid : '70', manual : 'null'}, (err, result) => {
         
     })
 })
@@ -54,31 +54,40 @@ router.get('/sensing', (req, res) => {
         }
 
         if (결과 != null) {
-                req.app.db.collection('mode').findOne({serialNum : req.query.serialNum}, (err, result) => {
-                    req.app.db.collection('option').findOne({serialNum : req.query.serialNum}, (error, optionResult) => { 
-                        if (result.automode == "on") {
-                            res.json(
-                                {
-                                    autoMode : result.automode,
-                                    manual : "null",
-                                    optionHumid : optionResult.humid,
-                                    optionTemp : optionResult.temp,
-                                }
-                            )
-                        } else {
-                            res.json(
-                                {
-                                    autoMode : result.automode,
-                                    manual : optionResult.manual // 이 값에 따라 아두이노는 창문을 열거나 닫아야 함
-                                }
-                            )
-                        }  
-                    })
+                req.app.db.collection('data-serial').updateOne({serialNum : req.query.serialNum}, {$set : updated}, (에러, 결과) => {
+                    req.app.db.collection('mode').findOne({serialNum : req.query.serialNum}, (err, result) => {
+                        req.app.db.collection('option').findOne({serialNum : req.query.serialNum}, (error, optionResult) => { 
+                            if (result.automode == "on") {
+                                res.json(
+                                    {
+                                        autoMode : result.automode,
+                                        manual : "null",
+                                        optionHumid : optionResult.humid,
+                                        optionTemp : optionResult.temp,
+                                    }
+                                )
+                            } else {
+                                res.json(
+                                    {
+                                        autoMode : result.automode,
+                                        manual : optionResult.manual // 이 값에 따라 아두이노는 창문을 열거나 닫아야 함
+                                    }
+                                )
+                            }  
+                        })
+                    })    
                 })
-            
+                
         } else {
             req.app.db.collection('data-serial').insertOne(inserted, (에러, 결과) => {
-                res.json("insert!!")
+                res.json(
+                    {
+                        automode : "on",
+                        manual : "null",
+                        optionHumid : "70",
+                        optionTemp : "27"
+                    }
+                )
             })
         }
     })
