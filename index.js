@@ -12,8 +12,8 @@ const path = require('path');
 
 var db; 
 
-MongoClient.connect(process.env.DB_URL, { useUnifiedTopology: true }, function(에러, client){  
-    if(에러) return console.log(에러)
+MongoClient.connect(process.env.DB_URL, { useUnifiedTopology: true }, function(err, client){  
+    if(err) return console.log(err)
 
     var port = process.env.PORT || 3000;
     db = client.db('smartwindow');
@@ -31,7 +31,7 @@ const session = require('express-session');
 const { json } = require('body-parser');
 const { send } = require('process');
 
-app.use(session({secret : '비밀코드', resave : true, saveUninitialized : false}));
+app.use(session({secret : 'secretCode', resave : true, saveUninitialized : false}));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -40,16 +40,16 @@ passport.use(new LocalStrategy({
   passwordField: 'Password',
   session: true, 
   passReqToCallback: false, 
-}, function (입력한아이디, 입력한비밀번호, done) {
-  db.collection('user').findOne({ ID : 입력한아이디 }, function (에러, 결과) {
-    if (에러) {
-        return done(에러)
+}, function (inputId, inputPw, done) {
+  db.collection('user').findOne({ ID : inputId }, function (err, result) {
+    if (err) {
+        return done(err)
     }
-    if (!결과) {
+    if (!result) {
         return done(null, false, { message: '존재하지않는 아이디입니다.' })
     } 
-    if (입력한비밀번호 == 결과.Password) { 
-        return done(null, 결과) 
+    if (inputPw == result.Password) { 
+        return done(null, result) 
     } else {
         return done(null, false, { message: '비밀번호가 틀렸습니다.' })
     }
@@ -60,9 +60,9 @@ passport.serializeUser(function(user, done) {
     done(null, user.ID) 
 });
 
-passport.deserializeUser(function(아이디, done){ 
-    db.collection('user').findOne({ID : 아이디}, function(에러, 결과) {
-        done(null, 결과) 
+passport.deserializeUser(function(id, done){ 
+    db.collection('user').findOne({ID : id}, function(err, result) {
+        done(null, result) 
     })
 });
 
@@ -70,11 +70,6 @@ passport.deserializeUser(function(아이디, done){
 app.use(express.static(path.join(__dirname, 'build')));
 
 
-
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'build/index.html'))
-})
-    
 
 app.use('/auth', require('./routes/auth.js'));
 
@@ -85,3 +80,4 @@ app.use('/arduino', require('./routes/arduino.js'))
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '/build/index.html'))
 })
+
