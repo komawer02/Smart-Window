@@ -3,7 +3,6 @@ const { reset } = require('mongodb/lib/core/connection/logger');
 var router = express.Router();
 
 
-
 // 앱에 센서가 측정한 데이터들을 보여줌
 router.post('/control/data', (req, res) => {
     req.app.db.collection('data-serial').findOne({serialNum : req.body.serialNum}, (err, result) => {
@@ -12,9 +11,9 @@ router.post('/control/data', (req, res) => {
             {
                 temp : result.temperature, //string
                 humid : result.humidity, //string
-                dust : result.dust, //string
+                gas : result.gas, //string
                 state : result.state, //string
-                rain : result.rain, //string
+                rain : result.rain, //strin
             }
         );   
         } catch (err) {
@@ -121,6 +120,7 @@ router.put('/mode-change', (req, res) => {
 router.put('/state-change',(req,res)=>{
     req.app.db.collection('option').updateOne({serialNum : req.body.serialNum}, {$set : {manual : req.body.state}}, (err, result) => {
         res.json(true);
+        console.log('result');
     })
 })
 
