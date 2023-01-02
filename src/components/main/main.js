@@ -1,6 +1,5 @@
 import '../../css/main.css'
 import { Outlet, Link, useParams } from 'react-router-dom'
-
 function Main() {
     const serial = useParams();
     

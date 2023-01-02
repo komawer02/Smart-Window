@@ -4,26 +4,6 @@ import { Link, useNavigate } from "react-router-dom"
 import { useEffect } from 'react'
 
 function Root() {
-    const navigate = useNavigate
-    useEffect(() => {
-        if (localStorage.getItem('ID') != null) {
-            console.log('페이지 이동')
-            axios.post('/auth/login', {
-                ID: localStorage.getItem('ID'),
-                Password: localStorage.getItem('PWD')
-            })
-                .then(res => {
-                    console.log('axios 성공')
-                    if (res.data.pass) {
-                        console.log('pass 성공')
-                        navigate(`/main/control/${localStorage.getItem('ID')}/${res.data.data[0].serialNum}`)
-                    }
-                })
-                .catch(e => {
-                    console.error(e);
-                })
-        }
-    },[])
     return (
         <div className="body">
             {/* <div className='imgbackground'> */}
